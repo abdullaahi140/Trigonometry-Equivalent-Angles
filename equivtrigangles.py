@@ -1,4 +1,5 @@
 #Fix angles that are *just* within range
+#Figure out decimal places of x in def next_func()
 
 import mpmath
 import math
@@ -15,10 +16,10 @@ class TrigEquivAngle():
         angles = TrigEquivAngle.create_equiv_angle_list([firstSinAngle,secondSinAngle],range1,range2,2*mpmath.pi)
         return(TrigEquivAngle.clean_angles_rad_deg(angles,radians,degrees,accuracy))
     
-    def next_sin(x,radians=None,degrees=None):
+    def next_sin(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_sin(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_sin(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def equiv_cos(x,range1,range2,radians=None,degrees=None,accuracy=2):
         range1,range2 = TrigEquivAngle.check_deg_range(range1,range2,degrees)
@@ -29,10 +30,10 @@ class TrigEquivAngle():
         angles = TrigEquivAngle.create_equiv_angle_list([firstCosAngle,secondCosAngle],range1,range2,2*mpmath.pi)
         return(TrigEquivAngle.clean_angles_rad_deg(angles,radians,degrees,accuracy))
 
-    def next_cos(x,radians=None,degrees=None):
+    def next_cos(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_cos(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_cos(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def equiv_tan(x,range1,range2,radians=None,degrees=None,accuracy=2):
         range1,range2 = TrigEquivAngle.check_deg_range(range1,range2,degrees)
@@ -41,34 +42,34 @@ class TrigEquivAngle():
         angles = TrigEquivAngle.create_equiv_angle_list([firstTanAngle],range1,range2,mpmath.pi)
         return(TrigEquivAngle.clean_angles_rad_deg(angles,radians,degrees,accuracy))
 
-    def next_tan(x,radians=None,degrees=None):
+    def next_tan(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_tan(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_tan(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def equiv_cosec(x,range1,range2,radians=None,degrees=None,accuracy=2):
         return TrigEquivAngle.equiv_sin(1/x,range1,range2,radians,degrees,accuracy)
 
-    def next_cosec(x,radians=None,degrees=None):
+    def next_cosec(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_cosec(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_cosec(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def equiv_sec(x,range1,range2,radians=None,degrees=None,accuracy=2):
         return TrigEquivAngle.equiv_cos(1/x,range1,range2,radians,degrees,accuracy)
 
-    def next_sec(x,radians=None,degrees=None):
+    def next_sec(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_sec(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_sec(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def equiv_cot(x,range1,range2,radians=None,degrees=None,accuracy=2):
         return TrigEquivAngle.equiv_tan(1/x,range1,range2,radians,degrees,accuracy)
 
-    def next_cot(x,radians=None,degrees=None):
+    def next_cot(x,radians=None,degrees=None,accuracy=2):
         angle, range1, range2 = TrigEquivAngle.next_func(x,radians=radians,degrees=degrees)
-        angles = TrigEquivAngle.equiv_cot(angle,range1,range2,radians=radians,degrees=degrees)
-        return TrigEquivAngle.return_next_angle(x,angles)
+        angles = TrigEquivAngle.equiv_cot(angle,range1,range2,radians=radians,degrees=degrees,accuracy=accuracy)
+        return TrigEquivAngle.return_next_angle(x,angles,accuracy=accuracy)
 
     def next_func(x,radians=None,degrees=None):
         if radians is True:
@@ -79,8 +80,8 @@ class TrigEquivAngle():
             range1, range2 = x - 360, x + 360
         return angle, range1, range2
 
-    def return_next_angle(x,angles):
-        index = angles.index(x)
+    def return_next_angle(x,angles,accuracy):
+        index = angles.index(round(x, accuracy))
         return angles[index+1]
 
     def check_deg_range(range1,range2,degrees):
