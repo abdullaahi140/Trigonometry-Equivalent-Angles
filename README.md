@@ -31,4 +31,8 @@ Where:
 
 #### Targets
 
-- Find the next or previous equivalent angle of a trigonometric equation. 
+* [x] Find the next or previous equivalent angle of a trigonometric equation.
+* [x] Implement the same functionality for cosecant, secant and cotangent
+
+
+* [ ] Allow less/greater than and equal to function regarding range
